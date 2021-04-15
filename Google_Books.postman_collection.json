@@ -1,0 +1,272 @@
+{
+	"info": {
+		"_postman_id": "f2e5adc2-e970-4076-8bed-2dd4760ebc34",
+		"name": "Google Books",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Get ListBooks for an author",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status test is ok\", function () {",
+							"    pm.response.to.have.status(200);",
+							"})",
+							"",
+							"pm.test(\"Authors\", function(){",
+							"    const response = pm.response.json();",
+							"    response.items.forEach(item => {",
+							"        item.volumeInfo.authors.forEach(author => {",
+							"            pm.expect(author.toLowerCase()).to.equal(\"nicolas sarkozy\");",
+							"        })",
+							"            })",
+							"",
+							"pm.test('response time is less than 100ms'), function(){",
+							"    pm.expect(pm.response.responseTime).to.be.below(100);",
+							"};",
+							"        ",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://www.googleapis.com/books/v1/volumes?q=\"Nicolas SARKOZY\"&maxResults=3",
+					"protocol": "https",
+					"host": [
+						"www",
+						"googleapis",
+						"com"
+					],
+					"path": [
+						"books",
+						"v1",
+						"volumes"
+					],
+					"query": [
+						{
+							"key": "q",
+							"value": "\"Nicolas SARKOZY\""
+						},
+						{
+							"key": "maxResults",
+							"value": "3"
+						}
+					]
+				},
+				"description": "Feature: Search All publications about prospect\n\n    Feature Description\n\n    Scenario: Display All pubicaion about Sarkozy\n    Given I'm User\n    When i inquire my subject nomAuteurCherche\n    Then i shaw about all books about this subject"
+			},
+			"response": []
+		},
+		{
+			"name": "Get only books and control maxResults",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\" verification Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"let maxResults = pm.request.url.query.get(\"maxResults\")",
+							"",
+							"pm.test(\"controlResult\", function (){",
+							"    const response = pm.response.json()",
+							"    pm.expect(response.items.length).to.equal(parseInt(maxResults))",
+							"})",
+							"",
+							"",
+							"  "
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "https://www.googleapis.com/books/v1/volumes?q=BasketBall&printTYpe=books&maxResults=4",
+					"protocol": "https",
+					"host": [
+						"www",
+						"googleapis",
+						"com"
+					],
+					"path": [
+						"books",
+						"v1",
+						"volumes"
+					],
+					"query": [
+						{
+							"key": "q",
+							"value": "BasketBall"
+						},
+						{
+							"key": "printTYpe",
+							"value": "books"
+						},
+						{
+							"key": "maxResults",
+							"value": "4"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get book with Id",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\" verification Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"controlId\", function(){",
+							"    const response = pm.response.json()",
+							"    pm.expect(response.id).to.equal({id})",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://www.googleapis.com/books/v1/volumes/{{id}}",
+					"protocol": "https",
+					"host": [
+						"www",
+						"googleapis",
+						"com"
+					],
+					"path": [
+						"books",
+						"v1",
+						"volumes",
+						"{{id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Filter Books wth price",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\" verification Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test('COntol book have price', function(){",
+							"    let response = pm.response.json();",
+							"    for(i = 0; i <= response.items.length; i++){",
+							"        pm.expect('response.saleInfo.listPrice[i]').to.not.be.empty;",
+							"        pm.expect('response.saleInfo.listPrice[i]').to.not.be.undefined;",
+							"  ",
+							"    }",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://www.googleapis.com/books/v1/volumes?q=filter={paid-ebooks}",
+					"protocol": "https",
+					"host": [
+						"www",
+						"googleapis",
+						"com"
+					],
+					"path": [
+						"books",
+						"v1",
+						"volumes"
+					],
+					"query": [
+						{
+							"key": "q",
+							"value": "filter={paid-ebooks}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get books with key word",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Status code is 200', function(){",
+							"    pm.response.to.have.status(200)",
+							"})",
+							"pm.environment.get(\"variable_key\");",
+							"let response = pm.response.json();",
+							"",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://www.googleapis.com/books/v1/volumes?q=nature",
+					"protocol": "https",
+					"host": [
+						"www",
+						"googleapis",
+						"com"
+					],
+					"path": [
+						"books",
+						"v1",
+						"volumes"
+					],
+					"query": [
+						{
+							"key": "q",
+							"value": "nature"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
