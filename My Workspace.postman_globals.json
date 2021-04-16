@@ -1,0 +1,44 @@
+{
+	"id": "837c0b23-5945-457a-824c-a4818de73edb",
+	"values": [
+		{
+			"key": "value",
+			"value": "15",
+			"enabled": true
+		},
+		{
+			"key": "key",
+			"value": "",
+			"enabled": true
+		},
+		{
+			"key": "KEY_API",
+			"value": "AIzaSyCtpMC5jZaVvFm9DrWFfhwl0gmtwpqSGLQ",
+			"enabled": true
+		},
+		{
+			"key": "SarkoUrl",
+			"value": "https://www.googleapis.com/books/v1/volumes?q={Nicolas Sarkozy}",
+			"enabled": true
+		},
+		{
+			"key": "UrlForId",
+			"value": "",
+			"enabled": true
+		},
+		{
+			"key": "UrlForId",
+			"value": "https://www.googleapis.com/books/v1/volumes/0ydtCwAAQBAJ",
+			"enabled": true
+		},
+		{
+			"key": "UrlAllBooksPrice",
+			"value": "https://www.googleapis.com/books/v1/volumes?q=filter{paid-ebooks}",
+			"enabled": true
+		}
+	],
+	"name": "My Workspace Globals",
+	"_postman_variable_scope": "globals",
+	"_postman_exported_at": "2021-04-15T23:48:50.360Z",
+	"_postman_exported_using": "Postman/8.1.0"
+}
